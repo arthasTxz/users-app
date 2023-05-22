@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Swal from "sweetalert2"
+import { UserContext } from "../context/UserContext"
 
 
-export const UserForm = ({userSelected, enviarDatos, initialUserForm, handlerClose })=> {
+export const UserForm = ({userSelected, handlerClose })=> {
 
+    const {initialUserForm, recibirDatos} = useContext(UserContext)
     const [userForm, setUserForm] = useState(initialUserForm)
 
     useEffect(()=> {
@@ -58,7 +60,7 @@ export const UserForm = ({userSelected, enviarDatos, initialUserForm, handlerClo
                       )
                     return
                 }
-                enviarDatos(userForm)
+                recibirDatos(userForm)
                 setUserForm(initialUserForm)
                 }}>{id !== 0?"Editar":"Crear"}</button>
 

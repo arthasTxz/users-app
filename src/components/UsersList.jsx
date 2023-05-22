@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import { UserRow } from "./UserRow"
+import { UserContext } from "../context/UserContext"
 
-export const UsersList = ({users, remove, update})=> {
+export const UsersList = ()=> {
+
+    const { users } = useContext(UserContext)
 
     return (
        
@@ -18,7 +22,7 @@ export const UsersList = ({users, remove, update})=> {
             <tbody>
                 {
                     users.map( ({id, username, email}) => (
-                      <UserRow key={id} id={id} username={username} email={email} send={remove} update={update}/>
+                      <UserRow key={id} id={id} username={username} email={email}/>
                     ))
                 }
             </tbody>

@@ -1,43 +1,26 @@
 
+import { useContext } from "react"
 import { UserModalForm } from "../components/UserModalForm"
 import { UsersList } from "../components/UsersList"
+import { UserContext } from "../context/UserContext"
 
-export const UsersPage = ({
-    users,
-    userSelected,
-    initialUserForm,
-    visibleForm,
-    recibirDatos,
-    handlerRemoveUser,
-    handlerUserSelected,
-    handlerOpen,
-    handlerClose
+export const UsersPage = () => {
 
-}) => {
+    const {
+        users,
+        visibleForm,
+        handlerOpen,
+    } = useContext(UserContext)
 
     return (
         <>
             {
                 !visibleForm || 
-                <UserModalForm 
-                userSelected={userSelected}
-                initialUserForm={initialUserForm}
-                recibirDatos={recibirDatos}
-                handlerClose={handlerClose}/>
+                <UserModalForm />
             }
             <div className="container my-4">
                 <h2>Users App</h2>
                 <div className="row">
-                    {/*            
-                {!visibleForm ||  
-                <div className="col">
-                    <UserForm 
-                    enviarDatos={recibirDatos}
-                    initialUserForm={initialUserForm}
-                    userSelected={userSelected}
-                    handlerClose={handlerClose}/> 
-                </div>} */}
-
 
                     <div className="col">
                         {visibleForm || <button
@@ -48,10 +31,7 @@ export const UsersPage = ({
                         {users.length === 0 ?
                             <div className="alert alert-warning">No hay usuarios en el sistema</div>
                             :
-                            <UsersList users={users}
-                                remove={handlerRemoveUser}
-                                update={handlerUserSelected} />}
-
+                            <UsersList />}
                     </div>
                 </div>
             </div>
