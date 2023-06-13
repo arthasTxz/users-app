@@ -1,10 +1,12 @@
 import { useContext } from "react"
 import { UserRow } from "./UserRow"
 import { UserContext } from "../context/UserContext"
+import { AuthContext } from "../auth/context/AuthContext"
 
 export const UsersList = ()=> {
 
-    const { users } = useContext(UserContext)
+    const { users} = useContext(UserContext)
+    const {login} = useContext(AuthContext)
 
     return (
        
@@ -14,15 +16,19 @@ export const UsersList = ()=> {
                     <th>#</th>
                     <th>username</th>
                     <th>email</th>
+                    {!login.isAdmin ||<>
                     <th>update</th>
                     <th>update route</th>
                     <th>remove</th>
+                    </>
+                    }
+                    
                 </tr>
             </thead>
             <tbody>
                 {
-                    users.map( ({id, username, email}) => (
-                      <UserRow key={id} id={id} username={username} email={email}/>
+                    users.map( ({id, username, email, admin}) => (
+                      <UserRow key={id} id={id} username={username} email={email} admin={admin}/>
                     ))
                 }
             </tbody>

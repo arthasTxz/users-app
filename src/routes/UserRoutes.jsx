@@ -1,23 +1,28 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { UsersPage } from "../pages/UsersPage"
 import { Navabar } from "../components/layout/Navbar"
-import { RegisterPage } from "../pages/registerPage"
+import { RegisterPage } from "../pages/RegisterPage"
 import { UserProvider } from "../context/UserProvider"
+import { AuthContext } from "../auth/context/AuthContext"
+import { useContext } from "react"
 
-export const UserRoutes = ({ login, handlerLogout }) => {
+export const UserRoutes = () => {
+    
+    const {login } = useContext(AuthContext)
 
     return (
         <>
             <UserProvider>
-                <Navabar login={login} handlerLogout={handlerLogout} />
+                <Navabar />
                 <Routes>
                     <Route path="users" element={<UsersPage />} />
-                    <Route path="users/register" 
-                    element={<RegisterPage 
-                         />} />
+                    {!login.isAdmin || <>
+                        <Route path="users/register" 
+                    element={<RegisterPage />} />
                     <Route path="users/edit/:id"
-                        element={<RegisterPage
-                             />} />
+                        element={<RegisterPage/>} />
+                    </>}
+                    
                     <Route path="/" element={<Navigate to={'/users'} />} />
                 </Routes>
             </UserProvider>
